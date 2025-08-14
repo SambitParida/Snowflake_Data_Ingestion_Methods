@@ -1,10 +1,16 @@
--- USE SYSADMIN ROLE TO CREATE OBJECTS --
-USE ROLE SYSADMIN;
-CREATE OR REPLACE WAREHOUSE DATA_INGESTION_USER WITH WAREHOUSE_SIZE = 'LARGE' WAREHOUSE_TYPE = 'STANDARD' AUTO_SUSPEND = 60 AUTO_RESUME = TRUE MIN_CLUSTER_COUNT = 1 MAX_CLUSTER_COUNT = 1 SCALING_POLICY = 'STANDARD';
+-- use sysadmin role to create objects --
+use role sysadmin;
+create or replace warehouse data_ingestion_wh with warehouse_size = 'large' warehouse_type = 'standard' auto_suspend = 60 auto_resume = true min_cluster_count = 1 max_cluster_count = 1 scaling_policy = 'standard';
 
-USE ROLE USERADMIN;
-CREATE OR REPLACE USER CRICKET_USER PASSWORD = 'TEST@1234' COMMENT = 'THIS USER IS CREATED TO INGEST DATA IN SNOWFLAKE' DEFAULT_ROLE = SYSADMIN DEFAULT_SECONDARY_ROLES = ('ALL') MUST_CHANGE_PASSWORD = FALSE;
+create or replace database ttips;
+use database ttips;
+create or replace schema ch01;
 
-USE ROLE SECURITYADMIN;
-GRANT ROLE SYSADMIN TO USER CRICKET_USER;
-GRANT USAGE ON WAREHOUSE CRICKET_DWH TO ROLE SYSADMIN;
+use role useradmin;
+create or replace user data_ingestion_user password = 'test@1234' comment = 'this user is created to ingest data in snowflake' default_role = sysadmin default_secondary_roles = ('all') must_change_password = false;
+
+use role securityadmin;
+grant role sysadmin to user data_ingestion_user;
+grant usage on warehouse data_ingestion_wh to role sysadmin;
+
+
