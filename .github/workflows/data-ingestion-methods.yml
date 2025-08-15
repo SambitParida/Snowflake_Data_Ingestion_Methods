@@ -1,4 +1,4 @@
-name: cricket-data-pipeline-and-analytics
+name: data-ingestion-methods
 
 # Triggers the action based on branch and path. 
 on:
