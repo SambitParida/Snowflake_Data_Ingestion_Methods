@@ -20,5 +20,9 @@ create or replace transient table customer_csv (
 	country_name varchar(20),
 	gmt_timezone_offset number(10,2),
 	preferred_cust_flag boolean,
-	registration_time timestamp_ltz(9)
+	registration_time timestamp_ltz(9),
+	stg_file_name string,
+    stg_file_load_ts timestamp_ntz,
+    stg_file_md5 string,
+    copy_data_ts timestamp_ntz default current_timestamp
 );
