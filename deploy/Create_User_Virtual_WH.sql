@@ -5,6 +5,7 @@ create or replace warehouse data_ingestion_wh with warehouse_size = 'large' ware
 create or replace database ttips;
 use database ttips;
 create or replace schema ch01;
+create or replace schema ch02;
 
 use role useradmin;
 create or replace user data_ingestion_user password = 'test@1234' comment = 'this user is created to ingest data in snowflake' default_role = sysadmin default_secondary_roles = ('all') must_change_password = false;
