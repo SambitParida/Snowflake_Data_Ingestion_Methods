@@ -79,6 +79,7 @@ create or replace transient table customer_psv_01 (
     stg_file_md5 string,
     copy_data_ts timestamp_ntz default current_timestamp
 );
+
 -- Create CSV File format -- 
 create or replace file format customer_csv_ff 
     type = 'csv' 
@@ -152,12 +153,12 @@ from (
             metadata$file_last_modified as stg_file_load_ts,
             metadata$file_content_key as stg_file_md5,
             current_timestamp as copy_data_ts
-        from @~customer/csv/uncompressed/customer_data_with_100_records.csv t
+        from @~/customer/csv/uncompressed/customer_data_with_100_records.csv t
     ) file_format = (format_name = 'ttips.ch02.customer_csv_ff') on_error = continue;
 
 
 
-copy into ch01.customer_tsv (
+copy into ch02.customer_tsv_01 (
     customer_pk,
     salutation,
     first_name,
@@ -198,10 +199,10 @@ from (
             metadata$file_last_modified as stg_file_load_ts,
             metadata$file_content_key as stg_file_md5,
             current_timestamp as copy_data_ts
-        from @ttips.ch01.tsv_stg t
-    ) file_format = (format_name = 'ttips.ch01.customer_tsv_ff') on_error = continue;
+        from @~/customer/tsv/uncompressed/customer_data_with_100_records.tsv t
+    ) file_format = (format_name = 'ttips.ch02.customer_tsv_ff') on_error = continue;
 
-copy into ch01.customer_psv (
+copy into ch02.customer_psv_01 (
     customer_pk,
     salutation,
     first_name,
@@ -242,5 +243,5 @@ from (
             metadata$file_last_modified as stg_file_load_ts,
             metadata$file_content_key as stg_file_md5,
             current_timestamp as copy_data_ts
-        from @ttips.ch01.psv_stg t
-    ) file_format = (format_name = 'ttips.ch01.customer_psv_ff') on_error = continue;
+        from @~/customer/psv/uncompressed/customer_data_with_100_records.psv t
+    ) file_format = (format_name = 'ttips.ch02.customer_psv_ff') on_error = continue;
