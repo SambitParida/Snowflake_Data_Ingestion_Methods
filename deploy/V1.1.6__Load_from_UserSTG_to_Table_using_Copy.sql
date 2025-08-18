@@ -1,7 +1,8 @@
 /* This script contains beelow
 1. Create table Statements
 2. Create file format
-3. Copy statement to copy file data to table */
+3. Copy statement to copy file data to table 
+Put command is present in execute_statements.sql*/
 
 -- use sysadmin role to create objects --
 use role sysadmin;
