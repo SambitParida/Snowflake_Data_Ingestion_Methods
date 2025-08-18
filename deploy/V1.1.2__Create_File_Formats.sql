@@ -16,7 +16,7 @@ create or replace file format customer_csv_ff
     timestamp_format = 'AUTO'
     skip_header = 1 
     field_optionally_enclosed_by = '"' 
-    null_if = ('\\n', '\\N', '');
+    null_if = ('\\n', '\\N', '','<null>','null');
 
 -- Create TSV File format -- 
 create or replace file format customer_tsv_ff 
