@@ -159,3 +159,6 @@ list @~/customer/psv/uncompressed;
 -- Viewing all internal user stages ---
 
 list @~;
+
+----Purge User Stage---
+REMOVE @~;
