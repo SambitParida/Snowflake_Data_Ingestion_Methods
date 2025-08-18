@@ -132,4 +132,30 @@ select t.$1::text as customer_pk,
     metadata$file_last_modified as stg_file_load_ts,
     metadata$file_content_key as stg_file_md5,
     current_timestamp as copy_data_ts
-from @ttips.ch01.csv_stg/data-file-with-2-issues.csv (file_format => 'ttips.ch01.customer_csv_ff') t;
+from @ttips.ch01.csv_stg/data-file-with-datatype-issue.csv (file_format => 'ttips.ch01.customer_csv_ff') t;
+
+
+-- Load csv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/customer_data_with_100_records.csv 
+    @~/customer/csv/uncompressed
+    auto_compress=false;
+
+list @~/customer/csv/uncompressed;
+
+-- Load tsv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/customer_data_with_100_records.tsv 
+    @~/customer/tsv/uncompressed
+    auto_compress=false;
+
+list @~/customer/tsv/uncompressed;
+
+-- Load psv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/customer_data_with_100_records.psv 
+    @~/customer/psv/uncompressed
+    auto_compress=false;
+
+list @~/customer/psv/uncompressed;
+
+-- Viewing all internal user stages ---
+
+list @~;
