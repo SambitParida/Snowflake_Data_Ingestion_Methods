@@ -1,7 +1,11 @@
+/*Many important scripts are present including 
+1. Multiple file upload from local to snowflake user stage
+2. parallel upload etc */
+
 use role sysadmin;
 use warehouse data_ingestion_wh;
 use database ttips;
-use schema ch01;
+use schema ch02;
 
 -- Load csv data from local directory to snowflake internal named stage and verify --
 PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/customer_10k_good_data.csv @csv_stg;
@@ -162,3 +166,25 @@ list @~;
 
 ----Purge User Stage---
 REMOVE @~;
+
+-- Load multiple csv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/multiple_files/*
+    @~/customer/csv/uncompressed
+    auto_compress=false;
+
+list @~/customer/csv/uncompressed;
+
+-- Load multiple csv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/multiple_files/*
+    @~/customer/csv/uncompressed
+    auto_compress=false;
+
+list @~/customer/csv/uncompressed;
+
+-- Load large file csv data from local directory to snowflake internal user stage and verify --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/06_01_customer_500k_rows.csv.gz
+    @~/customer/csv/compressed
+    auto_compress=true
+    parallel = 20;
+
+list @~/customer/csv/compressed;
