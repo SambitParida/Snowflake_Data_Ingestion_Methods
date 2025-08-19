@@ -188,3 +188,11 @@ PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/Da
     parallel = 20;
 
 list @~/customer/csv/compressed;
+
+-- Load multiple csv data from local directory to snowflake internal user stage. Files contain special characters --
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch06/*
+    @~/cho6/csv/uncompressed
+    auto_compress=false
+    parallel = 10;
+
+list @~/cho6/csv/uncompressed;
