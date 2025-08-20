@@ -196,3 +196,20 @@ PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/Da
     parallel = 10;
 
 list @~/cho6/csv/uncompressed;
+
+
+   select t.$1::text as id,
+            t.$2::text as first_name,
+            t.$3::text as last_name,
+            t.$4::text as email,
+            t.$5::text as gender,
+            REGEXP_REPLACE($6::STRING, '["'']', '') AS about_me,
+            metadata$filename as stg_file_name,
+            metadata$file_last_modified as stg_file_load_ts,
+            metadata$file_content_key as stg_file_md5,
+            current_timestamp as copy_data_ts
+        from @~/cho6/csv/uncompressed/06_sample_email_regex.csv 
+        (file_format => 'ttips.ch06.csv_double_q_reg_exp_ff') t
+
+-- ch07 : Data load for deduplication during copy poc ---
+
