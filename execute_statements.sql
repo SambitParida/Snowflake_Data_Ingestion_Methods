@@ -165,7 +165,8 @@ list @~/customer/psv/uncompressed;
 list @~;
 
 ----Purge User Stage---
-REMOVE @~;
+use schema ch07;
+REMOVE @~/cho7/csv/dedup/03_08pm_user_data.csv;
 
 -- Load multiple csv data from local directory to snowflake internal user stage and verify --
 PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/multiple_files/*
@@ -213,3 +214,39 @@ list @~/cho6/csv/uncompressed;
 
 -- ch07 : Data load for deduplication during copy poc ---
 
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch07/04_user_20k.csv 
+    @~/cho7/csv/dedup
+    auto_compress=false
+    parallel = 10;
+
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch07/multfiles/*
+    @~/cho7/csv/dedup/multfiles
+    auto_compress=false
+    parallel = 10;
+
+
+list @~/cho7/csv/dedup;
+
+select * from ch07.user;
+
+
+select distinct t.$1::number as id,
+            t.$2::text as first_name,
+            t.$3::text as last_name,
+            t.$4::text as email,
+            t.$5::text as gender,
+            t.$6::text as about_me
+        from @~/cho7/csv/dedup/multfiles/ 
+     (file_format =>'ttips.ch07.allow_duplicate_ff') t order by id
+
+
+--------
+--Loading data to stage for validate ---
+
+PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch08/* 
+    @~/cho8/csv/validate
+    auto_compress=false
+    parallel = 10;
+
+
+list @~/cho8/csv/validate;
