@@ -15,7 +15,7 @@ use database ttips;
 
 
 -- use schema --
-create schema ch06;
+--create schema ch06 --
 use schema ch06;
 
 create or replace transient table user_email(
