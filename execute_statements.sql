@@ -248,5 +248,7 @@ PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/Da
     auto_compress=false
     parallel = 10;
 
+-- Same result can be got by executing below query --
+-- job_id = query id of the load copy statement. not with the validation mode--
+select * from table(validate(customer_validate,job_id => '01beaa2f-0000-2e31-003c-f30b0006e282'))
 
-list @~/cho8/csv/validate;
