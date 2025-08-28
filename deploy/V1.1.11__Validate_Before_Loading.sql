@@ -89,6 +89,6 @@ copy into ch07.customer_validate
 
 -- Same result can be got by executing below query --
 -- job_id = query id of the load copy statement. not with the validation mode--
-select * from table(validate(customer_validate,job_id => '01beaa08-0000-2e19-003c-f30b00064146'))
+select * from table(validate(customer_validate,job_id => '01beaa2d-0000-2e2b-003c-f30b0006cb1a'))
 
 
