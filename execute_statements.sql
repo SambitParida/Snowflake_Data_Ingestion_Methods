@@ -5,7 +5,7 @@
 use role sysadmin;
 use warehouse data_ingestion_wh;
 use database ttips;
-use schema ch02;
+use schema ch01;
 
 -- Load csv data from local directory to snowflake internal named stage and verify --
 PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/customer_10k_good_data.csv @csv_stg;
@@ -84,7 +84,7 @@ from @ttips.ch01.psv_stg (file_format => 'ttips.ch01.customer_psv_ff') t;
 
 
 -- Check Load History for status --
-select * from information_schema.load_history
+select * from information_schema.load_history;
 
 -- Load csv data from local directory to snowflake internal named stage and verify : ERRORNEOUS FILE with wrong boolean data --
 PUT file:///Users/sambitparida/Desktop/Sambit/Learning/SnowflakePractice/data/DataIngestion/ch01/data-file-with-2-issues.csv @csv_stg;
