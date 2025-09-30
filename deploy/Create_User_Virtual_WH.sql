@@ -6,7 +6,9 @@ create or replace database ttips;
 use database ttips;
 create or replace schema ch01;
 create or replace schema ch02;
+create or replace schema ch06;
 create or replace schema ch09;
+create or replace schema ch10;
 
 
 use role useradmin;

@@ -46,3 +46,31 @@ copy into ch09.user
      file_format = (format_name = 'ttips.ch09.csv_ff') on_error = continue;
 
 
+/* creating a table with not null constraint and transform data before loading  */
+
+create or replace transient table user_notnull_transform (
+    id number,
+    first_name varchar(100),
+    middle_name varchar(100),
+    last_name varchar(100),
+    email varchar(100) not null,
+    dob varchar(10)
+);
+
+copy into ch09.user_notnull_transform (
+    id,
+    first_name,
+    middle_name,
+    last_name,
+    email,
+    dob
+)
+from (
+        select t.$1::text as id,
+            t.$2::text as first_name,
+            t.$3::text as middle_name,
+            t.$4::text as last_name,
+            nvl(t.$5,'Not Available') as email,
+            t.$6::text as dob
+        from @~/ch09/csv/01_user_sample_with_nulls.csv t
+    ) file_format = (format_name = 'ttips.ch09.csv_ff') on_error = continue;
