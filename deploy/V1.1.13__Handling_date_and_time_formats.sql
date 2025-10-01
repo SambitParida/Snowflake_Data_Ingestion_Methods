@@ -281,3 +281,5 @@ from (
             current_timestamp as copy_data_ts
         from @~/ch10/csv/06_01_customer_500k_rows.csv.gz t
     ) file_format = (format_name = 'ttips.ch10.csv_gzip_ff_v3') on_error = continue;
+
+    select * from customer_f3;
